@@ -39,7 +39,7 @@ This submission implements:
 
 ### 1. Clone repository
 ```bash
-git clone <your-repo-url>
+git clone "https://github.com/shanon082/baisoft_marketplace.git"
 cd baisoft-marketplace
 ```
 
