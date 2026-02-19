@@ -28,3 +28,8 @@ class User(AbstractUser):
 
     def __str__(self):
         return f"{self.username} ({self.role}) - {self.business}"
+
+    def save(self, *args, **kwargs):
+        if self.pk is None and not self.is_superuser and not self.business:
+            raise ValueError("Normal users must belong to a business")
+        super().save(*args, **kwargs)

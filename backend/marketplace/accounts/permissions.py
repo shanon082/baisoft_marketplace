@@ -18,5 +18,13 @@ class CanApprove(permissions.BasePermission):
         return request.user.is_superuser or request.user.role in ['admin', 'approver']
 
 class IsBusinessAdmin(permissions.BasePermission):
+    message = "Only business administrators can manage users."
+
     def has_permission(self, request, view):
-        return request.user.is_superuser or request.user.role == 'admin'
+        if request.user.is_superuser:
+            return True
+        return (
+            request.user.is_authenticated and
+            request.user.business is not None and
+            request.user.role == 'admin'
+        )
