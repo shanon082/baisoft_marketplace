@@ -23,13 +23,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
 
       try {
-        const response = await api.get("/users/me/");   // assumes you have this endpoint
+        const response = await api.get("/users/me/");  
         setUser(response.data);
       } catch (err) {
         console.error("Failed to load user:", err);
         localStorage.removeItem("access_token");
-        // Optional: also remove refresh token if you use it
-        // localStorage.removeItem("refresh_token");
         toast.error("Session expired. Please log in again.");
       } finally {
         setLoading(false);
@@ -45,7 +43,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       const res = await api.post("/token/", { username, password });
 
-      const { access, refresh } = res.data;   // assuming DRF SimpleJWT returns both
+      const { access, refresh } = res.data;   
 
       localStorage.setItem("access_token", access);
       if (refresh) {
@@ -72,28 +70,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = () => {
     localStorage.removeItem("access_token");
-    // localStorage.removeItem("refresh_token");   // if you use refresh tokens
     setUser(null);
     toast.success("You have been logged out");
-    router.push("/login");
+    router.push("/auth/login");
   };
-
-  // Optional: refresh token logic (uncomment if needed)
-  /*
-  const refreshAccessToken = async () => {
-    const refresh = localStorage.getItem("refresh_token");
-    if (!refresh) return false;
-
-    try {
-      const res = await api.post("/token/refresh/", { refresh });
-      localStorage.setItem("access_token", res.data.access);
-      return true;
-    } catch (err) {
-      logout(); // refresh failed → force logout
-      return false;
-    }
-  };
-  */
 
   const value = {
     user,

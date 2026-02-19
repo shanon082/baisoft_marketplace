@@ -6,6 +6,7 @@ class Product(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
+    image = models.FileField(upload_to='products/', null=True, blank=True)
     status = models.CharField(max_length=20, choices=[
         ('draft', 'Draft'),
         ('pending_approval', 'Pending Approval'),

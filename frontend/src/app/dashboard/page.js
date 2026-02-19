@@ -1,81 +1,30 @@
 "use client";
 
-import { useAuth } from "@/context/AuthContext";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import Link from "next/link";
-import { LogOut, Package, Globe, Users } from "lucide-react";
+import TopHeader from "../components/TopHeader";
 
-export default function DashboardLayout({ children }) {
-  const { user, loading, logout } = useAuth();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!loading && !user) {
-      router.replace("/auth/login");
-    }
-  }, [user, loading, router]);
-
-  if (loading) return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
-  if (!user) return null;
-
-  const isAdmin = user.role === "admin";
-  const canApprove = user.role === "admin" || user.role === "approver";
-  const canEdit = user.role === "admin" || user.role === "editor";
-
+export default function DashboardPage() {
   return (
-    <div className="min-h-screen bg-gray-100">
-      <nav className="bg-white shadow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex">
-              <div className="flex-shrink-0 flex items-center">
-                <span className="text-xl font-bold text-indigo-600">Marketplace</span>
-              </div>
-              <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-                <Link
-                  href="/products"
-                  className="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300"
-                >
-                  <Package className="mr-2 h-5 w-5" />
-                  Products
-                </Link>
-                <Link
-                  href="/public"
-                  className="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300"
-                >
-                  <Globe className="mr-2 h-5 w-5" />
-                  Public View
-                </Link>
-                {isAdmin && (
-                  <Link
-                    href="/users"
-                    className="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300"
-                  >
-                    <Users className="mr-2 h-5 w-5" />
-                    Users
-                  </Link>
-                )}
-              </div>
-            </div>
+    <div className="space-y-6">
+      <TopHeader
+        title="Dashboard"
+        subtitle="Use quick links below to manage products, users, and public listings."
+      />
 
-            <div className="flex items-center">
-              <span className="text-sm text-gray-700 mr-4">
-                {user.username} • {user.role}
-              </span>
-              <button
-                onClick={logout}
-                className="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700"
-              >
-                <LogOut className="mr-2 h-4 w-4" />
-                Logout
-              </button>
-            </div>
-          </div>
+      <div className="surface p-6">
+        <h2 className="text-lg font-semibold text-slate-900">Quick Actions</h2>
+        <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <Link href="/products" className="rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm font-medium hover:bg-slate-50">
+            Open Products
+          </Link>
+          <Link href="/users" className="rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm font-medium hover:bg-slate-50">
+            Manage Users
+          </Link>
+          <Link href="/public" className="rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm font-medium hover:bg-slate-50">
+            View Public Catalog
+          </Link>
         </div>
-      </nav>
-
-      <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">{children}</main>
+      </div>
     </div>
   );
 }

@@ -1,5 +1,50 @@
 @import "tailwindcss";
 
+:root {
+  --brand-50: #eef4ff;
+  --brand-100: #dbe7ff;
+  --brand-600: #3559e0;
+  --brand-700: #2948bf;
+  --ink-900: #0f172a;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  color: var(--ink-900);
+  background:
+    radial-gradient(circle at 5% 5%, #f8fbff 0, #f8fbff 35%, transparent 70%),
+    radial-gradient(circle at 95% 0%, #f2f6ff 0, #f2f6ff 25%, transparent 65%),
+    #f4f6fb;
+}
+
+.app-shell {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+@media (min-width: 640px) {
+  .app-shell {
+    padding: 1.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .app-shell {
+    padding: 2rem;
+  }
+}
+
+.surface {
+  background: #ffffff;
+  border: 1px solid #e6e9f0;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+}
 
 .status-draft    { @apply bg-gray-100  text-gray-800  px-2.5 py-0.5 rounded-full text-xs font-medium; }
 .status-pending  { @apply bg-yellow-100 text-yellow-800 px-2.5 py-0.5 rounded-full text-xs font-medium; }
