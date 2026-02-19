@@ -1,13 +1,13 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState, ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import api from "@/lib/api";
 import toast from "react-hot-toast";
 
-const AuthContext = createContext();
+const AuthContext = createContext(undefined);
 
-export function AuthProvider({ children }) {
+export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
@@ -39,9 +39,9 @@ export function AuthProvider({ children }) {
     loadUser();
   }, []);   
 
-  const login = async (username, password) => {
+  const login = async (username: string, password: string) => {
     try {
-      setLoading(true);   // optional: show loading during login
+      setLoading(true);
 
       const res = await api.post("/token/", { username, password });
 
@@ -100,7 +100,6 @@ export function AuthProvider({ children }) {
     loading,
     login,
     logout,
-    // refreshAccessToken,   // if you implement refresh
   };
 
   return (

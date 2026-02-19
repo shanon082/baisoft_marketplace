@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import api from "@/lib/api";
-import ProductCard from "@/components/ProductCard";
+import ProductCard from "../products/_components/ProductCard";
 
 export default function PublicProductsPage() {
   const [products, setProducts] = useState([]);
@@ -11,7 +11,7 @@ export default function PublicProductsPage() {
   useEffect(() => {
     const fetchPublic = async () => {
       try {
-        const res = await api.get("/products/public/");
+        const res = await api.get("/public/");
         setProducts(res.data);
       } catch (err) {
         console.error("Failed to load public products");

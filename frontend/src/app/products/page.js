@@ -3,8 +3,8 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
 import api from "@/lib/api";
-import ProductTable from "@/components/ProductTable";
-import ProductForm from "@/components/ProductForm";
+import ProductForm from "./_components/ProductForm";
+import ProductTable from "./_components/ProductTable";
 import toast from "react-hot-toast";
 
 export default function ProductsPage() {
